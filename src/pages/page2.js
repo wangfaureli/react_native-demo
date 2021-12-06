@@ -1,9 +1,14 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 import AppbarComponent from '../components/appbar';
+import {useHistory} from 'react-router-dom';
 
-const Page2 = ({navigation}) => {
+const Page2 = () => {
+  let history = useHistory();
+  function handleClick() {
+    history.push('/');
+  }
   return (
     <>
       <AppbarComponent />
@@ -14,7 +19,9 @@ const Page2 = ({navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text>Hello, world!</Text>
+        <button type="button" onClick={handleClick}>
+          Go home
+        </button>
       </View>
     </>
   );

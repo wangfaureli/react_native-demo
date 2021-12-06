@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import AppbarComponent from './src/components/appbar';
 import {Card} from 'react-native-paper';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import Page2 from './src/pages/page2';
+import {NativeRouter, Route, Link, Switch} from 'react-router-native';
+import {useHistory} from 'react-router-dom';
+import Page2 from './src/pages/page2';
 
 const DATA = [
   {
@@ -69,15 +69,20 @@ const Item = ({title, image, chapter}) => {
   console.log(title);
   return (
     <View style={styles.item}>
-      <Card
-        onPress={() => {
-          alert('You tapped the card');
-        }}>
-        <ImageBackground source={image} style={styles.image}>
-          <Text>{chapter}</Text>
-          <Text style={styles.title}>{title}</Text>
-        </ImageBackground>
-      </Card>
+      <NativeRouter>
+        <Link to="/page2">
+          <Card>
+            <ImageBackground source={image} style={styles.image}>
+              <Text>{chapter}</Text>
+              <Text style={styles.title}>{title}</Text>
+            </ImageBackground>
+          </Card>
+        </Link>
+        <Switch>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/page2" element={<Page2 />} />
+        </Switch>
+      </NativeRouter>
     </View>
   );
 };
@@ -107,18 +112,8 @@ const HomeScreen = () => {
   );
 };
 
-// const Stack = createNativeStackNavigator();
-
 const App = () => {
   return <HomeScreen />;
-  // return (
-  //   <NavigationContainer>
-  //     <Stack.Navigator initialRouteName="Home">
-  //       <Stack.Screen name="Home" component={HomeScreen} />
-  //       <Stack.Screen name="Details" component={Page2} />
-  //     </Stack.Navigator>
-  //   </NavigationContainer>
-  // );
 };
 
 const styles = StyleSheet.create({
